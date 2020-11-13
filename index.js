@@ -20,7 +20,7 @@ bot.on('message', msg => {
   const command = args.shift().toLowerCase();
 
   if (command === "scrum") {
-      msg.channel.send("Scrum time!");
+      msg.channel.send("", {files: ["./resources/scrumtime.png"] });
   }
 
 });
