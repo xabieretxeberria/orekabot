@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const TOKEN = process.env.TOKEN;
 
+const commandPrefix = "!";
+
 bot.login(TOKEN);
 
 bot.on('ready', () => {
@@ -10,16 +12,15 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('pong');
-    msg.channel.send('pong');
+  if (msg.author.bot) return;
+  if (!msg.content.startsWith(commandPrefix)) return;
 
-  } else if (msg.content.startsWith('!kick')) {
-    if (msg.mentions.users.size) {
-      const taggedUser = msg.mentions.users.first();
-      msg.channel.send(`You wanted to kick: ${taggedUser.username}`);
-    } else {
-      msg.reply('Please tag a valid user!');
-    }
+  const commandBody = msg.content.slice(commandPrefix.length);
+  const args = commandBody.split(' ');
+  const command = args.shift().toLowerCase();
+
+  if (command === "scrum") {
+      msg.channel.send("Scrum time!");
   }
+
 });
